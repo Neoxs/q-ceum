@@ -1,6 +1,5 @@
 package fr.umontpellier.qcm.transformation;
 
-import org.eclipse.emf.common.util.EList;  // Add this import
 import qcm.*;
 import qcmpresentation.*;
 import qcmpresentation.impl.QcmpresentationFactoryImpl;
@@ -13,17 +12,21 @@ public class QCMToPresentation {
     }
     
     public QuestionnairePresentation transform(Questionnaire questionnaire) {
+        // Create main presentation container
         QuestionnairePresentation presentation = presentationFactory.createQuestionnairePresentation();
         
-        presentation.setTitle(questionnaire.getTitle());  // Changed from getTitle
-        presentation.setEnableBackNavigation(questionnaire.isAllowBack());  // Changed from isAllowBack
-        presentation.setShowProgressBar(true);
+        // Copy basic properties
+        presentation.setTitle(questionnaire.getTitle());
+        presentation.setEnableBackNavigation(questionnaire.isAllowBack());
+        presentation.setShowProgressBar(true);  // Default setting
         
-        for (Question question : questionnaire.getQuestions()) {  // Changed from getQuestions
+        // Transform each question into a page
+        for (Question question : questionnaire.getQuestions()) {
             QuestionPage page = transformQuestion(question);
             presentation.getPages().add(page);
         }
         
+        // Create result page
         ResultPage resultPage = presentationFactory.createResultPage();
         resultPage.setHeader("Quiz Results");
         resultPage.setShowDetailedFeedback(true);
@@ -37,13 +40,16 @@ public class QCMToPresentation {
     private QuestionPage transformQuestion(Question question) {
         QuestionPage page = presentationFactory.createQuestionPage();
         
-        page.setQuestionText(question.getIntitule());  // Changed from getText
-        page.setHeader("Question");
-        page.setDifficultyDisplay("Difficulty: " + question.getDifficulte());  // Changed from getDifficulty
+        // Set basic properties
+        page.setQuestionText(question.getText());
+        page.setHeader("Question");  // Can be customized
+        page.setDifficultyDisplay("Difficulty: " + question.getDifficulty());
         
-        page.setMultipleChoice(!question.isReponseUnique());  // Changed logic to use reponseUnique
+        // Set question type
+        page.setMultipleChoice(question instanceof MultipleChoiceQuestion);
         
-        for (Answer answer : question.getResponse()) {  // Changed from getAnswers
+        // Transform answers
+        for (Answer answer : question.getAnswers()) {
             AnswerOption option = transformAnswer(answer, page.isMultipleChoice());
             page.getOptions().add(option);
         }
@@ -53,8 +59,8 @@ public class QCMToPresentation {
     
     private AnswerOption transformAnswer(Answer answer, boolean isMultipleChoice) {
         AnswerOption option = presentationFactory.createAnswerOption();
-        option.setText(answer.getIntitule());  // Changed from getText
-        option.setCorrect(answer.isValide());  // Changed from isIsCorrect
+        option.setText(answer.getText());
+        option.setCorrect(answer.isIsCorrect());
         option.setInputType(isMultipleChoice ? InputType.CHECKBOX : InputType.RADIO);
         return option;
     }
