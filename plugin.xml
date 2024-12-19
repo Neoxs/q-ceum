@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+
+<!--
+-->
+
+<plugin>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated qcm.presentation -->
+      <package
+            uri="http://www.example.org/qcmpresentation"
+            class="qcmpresentation.QcmpresentationPackage"
+            genModel="model/qcm.presentation.genmodel"/>
+   </extension>
+
+   <extension point="org.eclipse.emf.ecore.generated_package">
+      <!-- @generated qcm -->
+      <package
+            uri="http://www.example.org/qcm"
+            class="qcm.QcmPackage"
+            genModel="model/qcm.genmodel"/>
+   </extension>
+
+</plugin>

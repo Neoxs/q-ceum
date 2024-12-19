@@ -1,0 +1,59 @@
+# Eclipse project files
+bin/
+.settings/
+.metadata/
+.project
+.classpath
+
+# Generated EMF code
+src-gen/
+model-gen/
+**/src/main/java/impl/
+**/src/main/java/util/
+
+# Java related
+*.class
+.mtj.tmp/
+*.jar
+*.war
+*.ear
+hs_err_pid*
+
+# Build directories
+target/
+build/
+
+# IDE specific files
+.idea/
+*.iml
+*.iws
+.vscode/
+
+# EMF and XText specific
+*.genmodel
+*.ecore_diagram
+*.airdresource.indexes
+plugin.xml_gen
+
+# OS Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Log files
+*.log
+
+# Runtime configurations
+runtime-EclipseApplication/
+.launches/
+
+# Others
+/tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
